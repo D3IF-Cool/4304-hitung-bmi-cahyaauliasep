@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import org.d3if0088.hitungbmi.R
 import org.d3if0088.hitungbmi.data.KategoriBmi
+import org.d3if0088.hitungbmi.databinding.FragmentSaranBinding
 
 class SaranFragment : Fragment() {
     private lateinit var binding: FragmentSaranBinding
@@ -40,6 +41,4 @@ class SaranFragment : Fragment() {
             }
         }
     }
-}
-
 }
