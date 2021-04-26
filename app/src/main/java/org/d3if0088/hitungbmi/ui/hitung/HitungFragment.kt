@@ -49,6 +49,7 @@ class HitungFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getNavigasi().observe(viewLifecycleOwner, {
@@ -63,10 +64,6 @@ class HitungFragment : Fragment() {
             binding.kategoriTextView.text = getString(R.string.kategori_x,
                     getKategori(it.kategori))
             binding.buttonGroup.visibility = View.VISIBLE
-        })
-        viewModel.data.observe(viewLifecycleOwner, {
-            if (it == null) return@observe
-            Log.d("HitungFragment", "Data tersimpan. ID = ${it.id}")
         })
     }
 
