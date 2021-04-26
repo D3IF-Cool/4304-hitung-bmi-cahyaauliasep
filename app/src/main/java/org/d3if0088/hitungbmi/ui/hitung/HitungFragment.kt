@@ -49,6 +49,19 @@ class HitungFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentHitungBinding.inflate(
+            layoutInflater, container, false
+        )
+        binding.saranButton.setOnClickListener { viewModel.mulaiNavigasi() }
+        binding.button.setOnClickListener { hitungBmi() }
+        binding.shareButton.setOnClickListener { shareData() }
+        setHasOptionsMenu(true)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -67,19 +80,7 @@ class HitungFragment : Fragment() {
         })
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentHitungBinding.inflate(
-            layoutInflater, container, false
-        )
-        binding.saranButton.setOnClickListener { viewModel.mulaiNavigasi() }
-        binding.button.setOnClickListener { hitungBmi() }
-        binding.shareButton.setOnClickListener { shareData() }
-        setHasOptionsMenu(true)
-        return binding.root
-    }
+
 
     private fun hitungBmi() {
         val berat = binding.beratEditText.text.toString()
