@@ -1,4 +1,4 @@
-package org.d3if0088.hitungbmi.ui
+package org.d3if0088.hitungbmi.ui.hitung
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,12 +13,12 @@ import androidx.navigation.fragment.findNavController
 import org.d3if0088.hitungbmi.R
 import org.d3if0088.hitungbmi.data.KategoriBmi
 import org.d3if0088.hitungbmi.databinding.FragmentHitungBinding
+import org.d3if0088.hitungbmi.ui.HitungFragmentDirections
 
 class HitungFragment : Fragment() {
 
     private val viewModel: HitungViewModel by viewModels()
     private lateinit var binding: FragmentHitungBinding
-    private lateinit var kategoriBmi: KategoriBmi
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -36,6 +36,12 @@ class HitungFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getNavigasi().observe(viewLifecycleOwner, {
+            if (it == null) return@observe
+            findNavController().navigate(HitungFragmentDirections
+                    .actionHitungFragmentToSaranFragment(it))
+            viewModel.selesaiNavigasi()
+        })
         viewModel.getHasilBmi().observe(viewLifecycleOwner, {
             if (it == null) return@observe
             binding.bmiTextView.text = getString(R.string.bmi_x, it.bmi)
@@ -52,12 +58,8 @@ class HitungFragment : Fragment() {
         binding = FragmentHitungBinding.inflate(
             layoutInflater, container, false
         )
+        binding.saranButton.setOnClickListener { viewModel.mulaiNavigasi() }
         binding.button.setOnClickListener { hitungBmi() }
-        binding.saranButton.setOnClickListener { view: View ->
-            view.findNavController().navigate(
-                HitungFragmentDirections.actionHitungFragmentToSaranFragment(kategoriBmi)
-            )
-        }
         binding.shareButton.setOnClickListener { shareData() }
         setHasOptionsMenu(true)
         return binding.root
